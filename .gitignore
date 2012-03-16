@@ -1,0 +1,4 @@
+*.pyc
+chaco_demos
+input.church
+.DS_Store
