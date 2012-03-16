@@ -1,6 +1,6 @@
 # Poke
 
-An interactive coding environment for probabilistic programming.
+An interactive environment for probabilistic programming.
 
 ![Screencast 1](https://github.com/stuhlmueller/poke/raw/master/media/poke-flip.gif)
 
@@ -30,6 +30,7 @@ To start the user interface, run:
 
 ## References
 
+- Inspiration: Bred Victor's talk [Inventing on Principle](https://vimeo.com/36579366).
 - `hashable.py` is based on [this StackOverflow post](http://stackoverflow.com/questions/1611797/using-non-hashable-python-objects-as-keys-in-dictionaries)
 - `barchart.py` is based on [this chaco mailing list posting](https://mail.enthought.com/pipermail/chaco-users/2009-October/001422.html)
 - `read-source` in `church-loop.ss` is based on `bher/church-compiler.ss`
