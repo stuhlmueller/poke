@@ -19,9 +19,33 @@ logging.basicConfig()
 __all__ = "BarChart"
 
 
+def num(s):
+    try:
+        return int(s)
+    except ValueError:
+        try:
+            return float(s)
+        except ValueError:
+            return s
+    
+
+def maybe_numeric(lst):
+    try:
+        return [int(i) for i in lst]
+    except ValueError:
+        try:
+            return [float(i) for i in lst]
+        except ValueError:
+            return lst
+
+
 def readable_labels(labels):
-    if type(labels[0]) in [np.float64, type(1.0)]:
+    if len(labels)==0:
+        return []
+    elif type(labels[0]) in [np.float64, type(1.0)]:
         return [str(l)[:5] for l in labels]
+    elif type(labels[0]) in [type(1)]:
+        return [int(l) for l in labels]
     else:
         return [str(l) for l in labels]
 
@@ -96,6 +120,8 @@ class BarChart(HasTraits):
         
         index = getattr(self.source, self.index_name)
         value = getattr(self.source, self.value_name)
+
+        index = maybe_numeric(index)
 
         if len(index) == len(value):
             i = np.argsort(index)

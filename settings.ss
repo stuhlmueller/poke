@@ -16,7 +16,7 @@
 
  (define CHURCH-TRAILER
    '( (randomize-rng)
-      (church-main '(top) (make-empty-store)) ))
+      (lambda () (church-main '(top) (make-empty-store))) ))
 
  (define SAMPLES-PER-RUN 10)
 

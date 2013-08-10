@@ -12,16 +12,16 @@
   (read-source CHURCH-HEADER-FILE))
 
 (define (local expr)
-   `((lambda () ,expr)))
+  `((lambda () ,expr)))
 
 (define (read-source pathname)
- (call-with-input-file pathname
-  (lambda (port)
-   (let loop ((forms '()))
-    (let ((form (read port)))
-     (if (eof-object? form)
-	 (reverse forms)
-	 (loop (cons form forms))))))))
+  (call-with-input-file pathname
+    (lambda (port)
+      (let loop ((forms '()))
+        (let ((form (read port)))
+          (if (eof-object? form)
+              (reverse forms)
+              (loop (cons form forms))))))))
 
 (define (define? expr)
   (tagged-list? expr 'define))
@@ -51,8 +51,8 @@
                                            (list 'poke-result poke-result))))))))))
 
 (define (expr->body expr)
-   (filter (lambda (e) (not (tagged-list? e 'import)))
-           expr))
+  (filter (lambda (e) (not (tagged-list? e 'import)))
+          expr))
 
 (define (expr->environment expr)
   (let ([imports (find (lambda (e) (tagged-list? e 'import)) expr)])
@@ -62,11 +62,12 @@
   (finitize obj))
 
 (define (make-thunk compiled-expr)
-  (lambda () (eval (local (append '(begin)
+  (let ([env (expr->environment CHURCH-HEADER)]
+        [expr (local (append '(begin)
                              (expr->body CHURCH-HEADER)
                              compiled-expr
-                             CHURCH-TRAILER))
-              (expr->environment CHURCH-HEADER))))
+                             CHURCH-TRAILER))])
+    (eval expr env)))
 
 (define (main)
   (display "church-loop started.\n")

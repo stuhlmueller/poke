@@ -38,11 +38,11 @@ class ChurchProcess(object):
             self.thread.start()
         else:
             logger.info("input file empty, skipping church-loop...")
-    
+
     def stop(self):
         if self.thread:
             self.thread.stop()
-    
+
     def restart(self):
         self.stop()
         self.start()
@@ -54,15 +54,15 @@ class ChurchProcess(object):
             if out.strip():
                 logger.info(out)
             if err.strip():
-                logger.info(err)        
+                logger.info(err)
 
-        
+
 class ModifiedEventHandler(FileSystemEventHandler):
 
     def __init__(self):
         self.churchProcess = ChurchProcess()
         self.churchProcess.start()
-        
+
     def on_modified(self, event):
         super(ModifiedEventHandler, self).on_modified(event)
         if not event.is_directory:
